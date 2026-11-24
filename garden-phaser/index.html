@@ -1,0 +1,10 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#178345"><title>LUMI 0.6 | Nông trại Phaser</title><link rel="stylesheet" href="style.css"></head><body>
+<main class="shell"><header class="head"><div><small>LUMI · THỬ NGHIỆM PHASER 0.6</small><h1>🌱 Khu vườn Đức tin</h1><p>Chạm để khám phá cây · Kéo để đi quanh nông trại</p></div><a href="../garden-demo/" class="legacy">Bản 0.5 ↗</a></header>
+<section class="score" aria-label="Tiến trình"><span>🌱 Hạt mở <b id="seedCount">1</b></span><span>📜 Nhiệm vụ <b id="doneCount">0/12</b></span><span>💧 Chăm cây <b id="careCount">0</b></span></section>
+<div class="toolbar"><strong>🏞️ Nông trại 2.5D</strong><div><button id="zoomOut" aria-label="Thu nhỏ">−</button><button id="resetView" aria-label="Trở về góc nhìn ban đầu">⌖</button><button id="zoomIn" aria-label="Phóng to">+</button></div></div>
+<div id="game" aria-label="Bản đồ nông trại tương tác"></div><p id="engineStatus" class="status" role="status">Đang tải bộ máy Phaser…</p>
+<div class="actions"><button id="water" class="water">💧 Chăm cây</button><a href="../garden-demo/" class="mission">📖 Làm nhiệm vụ</a></div>
+<p class="note">Tiến trình được đọc và lưu bằng khóa <code>lumi_garden_v02</code> của bản 0.5. Không xóa dữ liệu cũ. Đây là bản thử nghiệm cục bộ, chưa kết nối tài khoản hoặc người chơi khác.</p></main>
+<div id="dialog" class="overlay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><button id="close" class="x" aria-label="Đóng">✕</button><h2 id="dialogTitle">Cây trong vườn</h2><div id="dialogBody"></div><button id="dialogAction" class="mission">Đến nhiệm vụ</button></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.90.0/phaser.min.js" integrity="" crossorigin="anonymous"></script><script src="game.js"></script>
+</body></html>
