@@ -10,26 +10,23 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="LUMI" />
   <link rel="stylesheet" href="styles.css" />
+  <style id="lumi-welcome-image-fix">
+    /* Ảnh chính thức: không vẽ lại, không chữ/nút giả; giữ nguyên tỷ lệ. */
+    .outer-wrap { min-height: 100dvh; padding: 0; gap: 0; background: #e5f1ef; }
+    .outside-note { display: none !important; }
+    .phone { width: min(100%, 540px); height: 100dvh; min-height: 0; border: 0; border-radius: 0; box-shadow: none; background: #e9f6ff; }
+    .welcome { background: #b6e6ff url('assets/hat-giong-duc-tin-start.webp') center center / contain no-repeat !important; }
+    .welcome-tap { display: block; position: absolute; inset: 0; z-index: 10; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; border-radius: 0; opacity: 0; cursor: pointer; }
+    .welcome-tap:focus-visible { outline: 4px solid #137845; outline-offset: -8px; opacity: 1; background: #ffffff10; }
+    @media (max-width: 780px) { .phone { width: 100vw; height: 100dvh; } }
+  </style>
 </head>
 <body>
   <div class="outer-wrap">
     <main class="phone" id="app" aria-live="polite">
-      <section class="screen welcome" id="welcome-screen" aria-label="Chào mừng đến với LUMI">
-        <div class="welcome-sky" aria-hidden="true"><div class="sun-glow"></div></div>
-        <div class="status" aria-hidden="true"><span>09:41</span><span class="signal">▂▄▆ ◉ ▰</span></div>
-        <header class="welcome-brand">
-          <div class="mark" aria-hidden="true"><span class="cross">✝</span><span class="book">◡⌄◡</span></div>
-          <p class="brand-overline">LUMI</p>
-          <h1 style="font-size:clamp(27px,7.5vw,38px);line-height:1.05;max-width:340px;margin:0 auto">Hạt Giống Đức Tin</h1>
-          <div class="brand-rule"></div>
-          <p class="brand-tagline">Gieo Lời Chúa – Kết nối yêu thương<br/>Sống đức tin mỗi ngày</p>
-        </header>
-        <div class="welcome-scene" aria-hidden="true"></div>
-        <div class="welcome-actions">
-          <button class="btn primary" id="start-button" type="button">Bắt đầu <span aria-hidden="true">›</span></button>
-          <button class="btn light" id="signin-button" type="button">Đã có tài khoản</button>
-          <p class="tiny-caption">Một hành trình đức tin dành cho người trẻ Công giáo</p>
-        </div>
+      <section class="screen welcome" id="welcome-screen" aria-label="Hạt Giống Đức Tin – màn hình khởi đầu LUMI">
+        <button class="welcome-tap" id="start-button" type="button" aria-label="Chạm để bắt đầu khám phá ứng dụng LUMI"></button>
+        <button id="signin-button" type="button" hidden aria-hidden="true" tabindex="-1">Đăng nhập (chưa mở)</button>
       </section>
 
       <section class="screen home hidden" id="home-screen" aria-label="Trang chủ LUMI">
