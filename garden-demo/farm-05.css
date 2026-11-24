@@ -1,0 +1,45 @@
+/* LUMI 0.5 — camera isometric 2.5D, kế thừa toàn bộ cơ chế LUMI 0.4. */
+.farm-toolbar{position:relative;z-index:7;display:flex;align-items:center;gap:7px;margin:18px 0 7px;padding:8px 9px;border:2px solid #e5bc63;border-radius:18px;background:linear-gradient(#fff8d7,#f7e8b5);box-shadow:0 4px 0 #d7aa5e}
+.farm-toolbar-title{flex:1;min-width:0;font-weight:900;color:#37582a;font-size:12px}
+.farm-toolbar button{width:35px;height:34px;flex:none;border:2px solid #cba15a;border-radius:11px;background:linear-gradient(#fffefa,#f5d898);box-shadow:0 2px 0 #b1843b;color:#5b3f1f;font-size:20px;font-weight:900;touch-action:manipulation}
+.farm-toolbar button:active{transform:translateY(2px);box-shadow:none}
+.farm-toolbar output{font-size:11px;font-weight:850;color:#476135;min-width:37px;text-align:center}
+.farm-help{font-size:11px;line-height:1.45;color:#6b7757;margin:6px 3px 9px}
+.farm-world.farm-camera{height:clamp(465px,75dvh,680px)!important;overflow:hidden;position:relative;touch-action:none;background:#a6dc80;user-select:none;-webkit-user-select:none}
+.farm-camera .farm-map{position:absolute!important;top:0!important;left:0!important;width:800px!important;height:1260px!important;aspect-ratio:auto!important;transform-origin:top left;will-change:transform;cursor:grab;touch-action:none}
+.farm-camera .farm-map.is-dragging{cursor:grabbing}
+.farm-camera button{touch-action:manipulation;user-select:none}
+.farm-camera .farm-world-title{pointer-events:none}
+.farm-camera .farm-buildings .building{font-size:23px}
+.farm-camera .farm-buildings .building small{font-size:16px}
+.farm-camera .plot small{font-size:18px!important;line-height:1.1}
+.farm-camera .plot .lock-art{font-size:48px}
+.farm-camera .farm-butterflies{font-size:34px}
+.farm-camera .farm-hint,.farm-camera .world-title{font-size:19px;padding:8px 13px}
+.farm-camera .world-title{top:17px}
+.farm-camera .farm-hint{top:75px}
+.farm-camera .farm-buildings .building-image{max-height:none}
+.farm-cloud-drift{position:absolute;top:12%;left:18%;font-size:65px;opacity:.72;pointer-events:none;z-index:2;animation:farmFloatCloud 17s ease-in-out infinite alternate}
+.farm-sparkle-sky{position:absolute;top:20%;right:17%;font-size:35px;z-index:6;color:#fff8a2;pointer-events:none;animation:farmShimmer 2.7s ease-in-out infinite alternate}
+.farm-camera .butterfly-two{top:53%;left:10%;right:auto;animation:farmButterflyTwo 5.5s ease-in-out infinite alternate;z-index:6}
+.farm-camera .building{overflow:visible}
+.farm-camera .building:after{content:attr(data-stage-label);position:absolute;top:-16px;right:3px;padding:5px 10px;font-size:13px;border:2px solid #f5e2a9;border-radius:20px;background:#fff5d2;color:#725021;font-weight:900;box-shadow:0 2px 3px #54371c40}
+.farm-camera .building.is-built:after{background:#e8ffd6;color:#1f703b;border-color:#b6e898}
+.farm-camera .building-image{transition:filter .2s,transform .35s}
+.farm-camera .building[data-stage="0"] .building-image{opacity:.68;filter:sepia(.45) grayscale(.45)}
+.farm-camera .building[data-stage="1"] .building-image{opacity:.78;filter:sepia(.25) saturate(.5)}
+.farm-camera .building[data-stage="2"] .building-image{opacity:.88;filter:saturate(.65)}
+.farm-camera .building[data-stage="3"] .building-image{opacity:1;filter:drop-shadow(0 8px 4px #426a3250)}
+.farm-camera .building.is-built .building-image{opacity:1;filter:drop-shadow(0 6px 9px #fff8b9)}
+.farm-camera .farm-construction{position:absolute;left:5%;top:18%;width:90%;height:82%;pointer-events:none;border-left:4px dashed #ba844c88;border-right:4px dashed #ba844c88}
+.farm-camera .building[data-stage="3"] .farm-construction,.farm-camera .building.is-built .farm-construction{display:none}
+.farm-camera .plot.farm-grow-now .plant-art{animation:farmGrowJoy .9s cubic-bezier(.2,1.4,.3,1) both}
+.farm-water-particle{position:absolute;pointer-events:none;z-index:20;font-size:27px;animation:farmWaterFall 1.2s ease-out forwards}
+.farm-camera:after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 20px #456b3e35;border-radius:21px}
+@keyframes farmFloatCloud{from{transform:translate(-40px,0)}to{transform:translate(160px,15px)}}
+@keyframes farmShimmer{from{opacity:.35;transform:scale(.9)}to{opacity:1;transform:scale(1.08)}}
+@keyframes farmButterflyTwo{from{transform:translate(0,0) rotate(-15deg)}to{transform:translate(90px,-60px) rotate(15deg)}}
+@keyframes farmGrowJoy{0%{transform:scale(.6) translateY(18px)}55%{transform:scale(1.2) translateY(-10px)}100%{transform:scale(1) translateY(0)}}
+@keyframes farmWaterFall{0%{opacity:0;transform:translate(-40px,-70px) scale(.7)}18%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(12px,80px) scale(1.25)}}
+@media(max-width:430px){.farm-toolbar-title{font-size:11px}.farm-toolbar{gap:4px}.farm-toolbar button{width:32px;height:33px}.farm-camera .farm-map{width:800px!important}}
+@media(prefers-reduced-motion:reduce){.farm-camera .farm-cloud-drift,.farm-camera .farm-sparkle-sky,.farm-camera .butterfly-two,.farm-camera .plot.farm-grow-now .plant-art,.farm-water-particle{animation:none!important}}
