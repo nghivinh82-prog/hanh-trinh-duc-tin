@@ -1,0 +1,35 @@
+/* LUMI Garden 0.3: cải thiện đồ họa trên DOM, không dùng ảnh chụp giao diện làm nút */
+:root{font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,-apple-system,"Segoe UI",sans-serif;color:#2d4c1a;background:#e4f4db}
+body{background:radial-gradient(circle at 10% 15%,#f0fbd9,#dcefd6 48%,#d3eaca)}
+.app{background:#fff9e9;box-shadow:0 10px 50px #1b591d30}
+.hero{padding:24px 20px 25px;background:linear-gradient(90deg,#125f28d9,#16692b75),url('assets/landscape.svg') center 33%/cover;border-bottom:5px solid #ffdf69;text-shadow:0 2px 5px #1457268c}
+.hero:after{content:'☀️';font-size:45px;top:12px;right:22px;color:initial}
+.hero h1{font-size:29px;color:#fff8c7;text-shadow:0 3px 0 #155927,0 4px 6px #0005}
+.nav{background:#fff4ce;border-bottom:3px solid #e9bf6c;gap:6px}
+.nav button{background:linear-gradient(#fffdf0,#f1dba5);border:2px solid #e7c78c;border-radius:18px;color:#71451a;box-shadow:0 3px 0 #c59659;font-weight:900;padding:10px 2px}
+.nav button.active{background:linear-gradient(#4fd737,#118438);color:white;border-color:#2a8d34;box-shadow:0 3px 0 #06602b}
+.section-title{color:#256331}.stat{background:linear-gradient(#fff9dc,#f5e7b2);border:2px solid #f0d387;border-radius:18px;box-shadow:0 3px 0 #e8bf7b}.stat strong{color:#1b853b;font-size:26px}.progress{background:#f3e1b9;border:2px solid #d6bc82;height:18px}.progress div{background:linear-gradient(#91ee64,#35b848);box-shadow:inset 0 2px #d2ff9f}
+.world{height:600px;background:#8dcf67 url('assets/landscape.svg') center center/100% 100% no-repeat;border:5px solid #fff8d5;box-shadow:0 8px 0 #d5a76b,0 16px 30px #2370295e;border-radius:27px;isolation:isolate}
+.world:before{display:none}.world-title{top:15px;left:15px;color:#155b28;border:2px solid #eddf9b;background:#fff9d8;box-shadow:0 3px 0 #ceb77a}
+.sun,.cloud{display:none}.garden-sparkles{position:absolute;top:45px;right:24px;color:#fff5a0;font-size:28px;letter-spacing:11px;text-shadow:0 0 10px #ffec59;animation:twinkle 3s ease-in-out infinite alternate}
+.buildings{top:100px;gap:13px}.building{min-height:145px;position:relative;border:3px solid #fff3c6;background:linear-gradient(#fffbedee,#f8e5b8e8);border-radius:23px;box-shadow:0 6px 0 #c39558,0 10px 17px #3d6b285c;text-shadow:0 1px white;font-weight:900;font-size:15px;transition:transform .16s}
+.building-image{height:86px;width:100%;display:block;object-fit:contain;filter:drop-shadow(0 4px 3px #53432140)}
+.building.locked .building-image{filter:grayscale(.8) drop-shadow(0 4px 3px #53432140);opacity:.65}.building small{font-weight:800;font-size:11px;color:#875921}
+.buildings-path{display:none}
+.plots{bottom:22px;left:9px;right:9px;grid-template-rows:repeat(3,90px);gap:8px}
+.plot{background:linear-gradient(#cbb184,#a66b36);border:3px solid #f0c686;border-radius:18px;box-shadow:0 7px 0 #765024,0 10px 9px #365b2255,inset 0 0 0 2px #edbd7a;color:#fff9e8;transition:transform .16s,filter .16s;position:relative;overflow:visible}
+.plot:before{content:'';position:absolute;inset:7px 6px 16px;border-radius:55% 55% 38% 38%;background:repeating-linear-gradient(150deg,#b77a42 0 4px,#b07a42 5px 11px,#c58e55 12px 17px);opacity:.75}
+.plot:not(.locked){background:linear-gradient(#84d66d,#57ae3a);border-color:#d6f49a;box-shadow:0 7px 0 #368338,0 10px 9px #365b2255,inset 0 0 0 2px #aaf27a}
+.plot:not(.locked):before{background:linear-gradient(#a6784b,#8a552d);opacity:1;inset:13px 8px 9px}
+.plot .plant-emoji{position:relative;z-index:1;width:100%;height:62px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 3px 1px #56452333);line-height:1}
+.plant-art{height:68px;max-width:95%;object-fit:contain;animation:plant-entry .35s cubic-bezier(.3,1.4,.3,1)}
+.lock-art{font-size:28px;filter:drop-shadow(0 2px #523722)}
+.plot small{position:relative;z-index:2;color:#5a391d;max-width:calc(100% - 4px);overflow:visible;white-space:normal;font-size:10px;text-shadow:0 1px #fff8d5,0 0 3px #fff8d5;background:#fff0bc;border:1px solid #d8a35d;border-radius:50px;padding:3px 2px;min-width:95%;transform:translateY(6px);line-height:1.05}
+.plot:active,.building:active{transform:translateY(4px)}.plot:focus-visible,.building:focus-visible{outline:4px solid #faca36;outline-offset:5px}
+.actions .btn{background:linear-gradient(#ffcf4a,#fa8c15);border:3px solid #ffed9f;box-shadow:0 5px 0 #bb6812;text-shadow:0 2px #b26617;font-size:15px;border-radius:22px;min-height:55px}
+.actions .btn.alt{background:linear-gradient(#65e650,#139735);border-color:#e0ffc1;box-shadow:0 5px 0 #0c6b30;color:#fff;text-shadow:0 2px #0c622d}
+.card{border:2px solid #e4d198;box-shadow:0 4px 0 #e2d5b4;background:#fffdf3}.card .btn,.dialog .btn{background:linear-gradient(#46c95c,#19783a);border-radius:15px}.pill{background:#f4f9d9}.dialog{border:5px solid #ffe4a2;box-shadow:0 10px 0 #caac6a,0 20px 50px #0a2c17aa}.notice{background:#f4f9de;border:2px solid #d1e9b0}
+@keyframes twinkle{from{opacity:.4;transform:scale(.92)}to{opacity:1;transform:scale(1.05)}}@keyframes plant-entry{from{opacity:.6;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+@media(min-width:560px){.world{height:670px}.plots{grid-template-rows:repeat(3,102px)}.plant-art{height:78px}.building{min-height:165px}.building-image{height:100px}}
+@media(max-width:390px){.world{height:565px}.plots{grid-template-rows:repeat(3,78px);gap:6px}.building{min-height:122px;font-size:12px}.building-image{height:68px}.plot small{font-size:9px}.plant-art{height:60px}.nav button{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.garden-sparkles,.plant-art{animation:none}}
