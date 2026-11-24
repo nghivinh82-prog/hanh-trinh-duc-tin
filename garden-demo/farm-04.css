@@ -1,0 +1,29 @@
+/* LUMI 0.4: nông trại isometric 2.5D. Các đối tượng là nút DOM thật. */
+.hero{background:linear-gradient(95deg,#155a2fcb,#177f48a8),url('assets/farm-world.svg') center 15%/cover;}
+.hero .eyebrow{color:#fff2af}.hero h1{font-size:clamp(25px,6vw,34px)}
+.farm-world{height:auto;overflow:hidden;border:6px solid #ffe8a4;border-radius:28px;background:#79c958;box-shadow:0 10px 0 #bf9d58,0 20px 28px #32662b3b;}
+.farm-world:before{display:none}.farm-map{position:relative;width:100%;aspect-ratio:800/1260;background:url('assets/farm-world.svg') center/100% 100% no-repeat;isolation:isolate}
+.farm-map .world-title{top:13px;left:15px;z-index:6;font-size:12px}.farm-hint{position:absolute;top:59px;left:16px;z-index:5;background:#f4ffe1db;color:#2b6c39;border-radius:20px;padding:6px 9px;font-weight:800;font-size:10px;border:2px solid #fff}
+.farm-butterflies{position:absolute;right:12%;top:29%;font-size:22px;animation:butterfly 4s ease-in-out infinite;filter:drop-shadow(0 4px 3px #16583450);pointer-events:none}
+.farm-buildings{position:absolute;top:18%;left:4%;right:4%;height:18%;display:flex;align-items:flex-end;justify-content:space-between;gap:7%;z-index:4}
+.farm-buildings .building{position:relative;flex:1;max-width:43%;min-height:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 2px 5px;border:0;border-radius:18px;background:linear-gradient(#ffffff10,#fff8ddc9);box-shadow:0 3px 0 #ba9455;color:#295332;font-size:12px;text-shadow:0 1px #fff8d4}
+.farm-buildings .building-image{display:block;width:100%;height:70%;object-fit:contain;filter:drop-shadow(0 7px 3px #266c3f56);transition:transform .23s}
+.farm-buildings .building:hover .building-image,.farm-buildings .building:focus-visible .building-image{transform:translateY(-5px) scale(1.05)}
+.farm-buildings .building.locked .building-image{filter:grayscale(.8) drop-shadow(0 7px 3px #266c3f56);opacity:.8}
+.farm-buildings .building small{margin-top:1px;font-size:10px;white-space:nowrap}.farm-pond-sign{position:absolute;right:4%;top:71%;background:#fff8d3ef;border:2px solid #eacc8c;border-radius:14px;padding:5px 8px;font-size:10px;font-weight:850;transform:rotate(-5deg)}
+.farm-world .plots{position:absolute;inset:0;display:block;z-index:5;pointer-events:none}
+.farm-world .plot{position:absolute;width:28%;height:12%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;background:transparent url('assets/farm-plot.svg') center 45%/100% 100% no-repeat!important;box-shadow:none!important;border:0!important;border-radius:0!important;overflow:visible;padding:0 2px 6px;pointer-events:auto;transition:transform .2s,filter .2s;filter:drop-shadow(0 5px 2px #38713855)}
+.farm-world .plot:before{display:none!important}.farm-world .plot.locked{filter:grayscale(.3) drop-shadow(0 4px 3px #3e6f3840)}
+.farm-world .plot:nth-child(3n + 1){left:4%}.farm-world .plot:nth-child(3n + 2){left:36%}.farm-world .plot:nth-child(3n + 3){left:68%}
+.farm-world .plot:nth-child(-n + 3){top:36%}.farm-world .plot:nth-child(n + 4):nth-child(-n + 6){top:49%}.farm-world .plot:nth-child(n + 7):nth-child(-n + 9){top:62%}.farm-world .plot:nth-child(n + 10){top:77%}
+.farm-world .plot:nth-child(3n + 2){transform:translateY(7%)}.farm-world .plot:hover{filter:drop-shadow(0 0 10px #fff59c)}.farm-world .plot:active{transform:scale(.96)}
+.farm-world .plot .plant-emoji{position:absolute;top:-14%;left:0;width:100%;height:94%;display:flex;align-items:center;justify-content:center;filter:none;z-index:2}
+.farm-world .plot .plant-art{height:100%;max-width:95%;width:100%;object-fit:contain;filter:drop-shadow(0 5px 3px #344a2055);animation:cropPop .4s ease-out}
+.farm-world .plot .lock-art{font-size:clamp(21px,6vw,37px);transform:translateY(9px)}
+.farm-world .plot small{position:absolute;z-index:3;bottom:-4%;width:90%;min-width:0;max-width:90%;font-size:clamp(9px,2.6vw,12px);background:linear-gradient(#fff8d0,#f5da98);border:2px solid #c38a4e;padding:4px 1px;border-radius:100px;color:#563820;text-shadow:none;transform:none!important;white-space:normal;box-shadow:0 3px 0 #9f692d;line-height:1.1}
+.farm-world .plot.farm-highlight{animation:cropGlow .75s ease-in-out 2}
+.actions{gap:10px}.actions .btn{font-size:clamp(12px,3.5vw,16px)}
+@keyframes butterfly{50%{transform:translate(-12px,-16px) rotate(-8deg)}}@keyframes cropPop{from{opacity:.4;transform:translateY(10px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes cropGlow{50%{filter:drop-shadow(0 0 17px #fff898);transform:scale(1.07)}}
+@media(min-width:560px){.farm-world{height:auto}.farm-map{aspect-ratio:800/1260}.farm-buildings .building{font-size:16px}.farm-world .plot small{font-size:12px}}
+@media(max-width:385px){.farm-world .plot{width:29%}.farm-world .plot:nth-child(3n+3){left:67%}.farm-buildings .building small{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.farm-butterflies,.farm-world .plot .plant-art,.farm-world .plot.farm-highlight{animation:none}}
