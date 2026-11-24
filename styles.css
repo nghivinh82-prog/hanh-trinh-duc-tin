@@ -19,3 +19,95 @@
 .scripture-card blockquote{max-width:233px;font-size:14.5px}
 @media(max-width:780px){.home-header{height:178px}}
 @media(max-height:690px){.home-header{height:148px}.greeting{top:42px}.scripture-card{height:166px}.feature{min-height:105px;gap:6px}.tile-icon{height:37px}.tile-icon svg{height:35px;width:35px}}
+
+/* LUMEN 1.1.1 - Sua kich thuoc bieu tuong */
+
+.scripture-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.scripture-label [data-icon],
+.nav-item [data-icon],
+.notification [data-icon] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.scripture-label svg,
+.nav-item svg,
+.notification svg {
+  display: block;
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.book-illustration {
+  position: absolute;
+  right: 8px;
+  bottom: 12px;
+  width: 85px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.book-illustration .gold-cross {
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.book-illustration .open-book {
+  display: flex;
+  width: 78px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-illustration .open-book svg {
+  display: block;
+  width: 74px !important;
+  height: 52px !important;
+}
+
+.tile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+}
+
+.tile-icon svg {
+  display: block;
+  width: 42px !important;
+  height: 42px !important;
+}
+
+.feature {
+  justify-content: center;
+  gap: 9px;
+}
+
+@media (max-height: 690px) {
+  .tile-icon {
+    width: 37px;
+    height: 37px;
+    flex-basis: 37px;
+  }
+
+  .tile-icon svg {
+    width: 35px !important;
+    height: 35px !important;
+  }
+}
