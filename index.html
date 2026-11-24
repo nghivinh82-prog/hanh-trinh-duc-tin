@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#127643" />
+  <meta name="description" content="ÁNH SÁNG – LUMEN: cùng người trẻ khám phá Lời Chúa, cầu nguyện và kết nối cộng đoàn." />
+  <title>ÁNH SÁNG | LUMEN – Hành trình đức tin</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="outer-wrap">
+    <main class="phone" id="app" aria-live="polite">
+      <section class="screen welcome" id="welcome-screen" aria-label="Chào mừng đến với Ánh Sáng">
+        <div class="welcome-sky" aria-hidden="true"><div class="sun-glow"></div></div>
+        <div class="status" aria-hidden="true"><span>09:41</span><span class="signal">▂▄▆ ◉ ▰</span></div>
+        <header class="welcome-brand">
+          <div class="mark" aria-hidden="true"><span class="cross">✝</span><span class="book">◡⌄◡</span></div>
+          <p class="brand-overline">LUMEN</p>
+          <h1>ÁNH SÁNG</h1>
+          <div class="brand-rule"></div>
+          <p class="brand-tagline">Gieo Lời Chúa – Kết nối yêu thương<br/>Sống đức tin mỗi ngày</p>
+        </header>
+        <div class="welcome-scene" aria-hidden="true"></div>
+        <div class="welcome-actions">
+          <button class="btn primary" id="start-button" type="button">Bắt đầu <span aria-hidden="true">›</span></button>
+          <button class="btn light" id="signin-button" type="button">Đã có tài khoản</button>
+          <p class="tiny-caption">Một hành trình đức tin dành cho người trẻ Công giáo</p>
+        </div>
+      </section>
+
+      <section class="screen home hidden" id="home-screen" aria-label="Trang chủ Ánh Sáng">
+        <div class="home-header">
+          <div class="home-landscape" aria-hidden="true"></div>
+          <div class="status home-status" aria-hidden="true"><span>09:41</span><span class="signal">▂▄▆ ◉ ▰</span></div>
+          <div class="greeting">
+            <div class="avatar" aria-hidden="true">😊</div>
+            <div class="greeting-text"><h2>Xin chào, bạn!</h2><button id="branch-button" class="branch-pill" type="button">✦ Chọn ngành TNTT <span aria-hidden="true">⌄</span></button></div>
+            <button class="notification" id="notifications-button" type="button" aria-label="Thông báo">♧<span class="notification-dot"></span></button>
+          </div>
+        </div>
+
+        <div class="home-scroll">
+          <article class="scripture-card">
+            <div class="scripture-label">📖 <span>Lời Chúa hôm nay</span></div>
+            <blockquote>“Anh em hãy yêu thương nhau,<br/>như Thầy đã yêu thương anh em.”</blockquote>
+            <div class="reference">Ga 15,12</div>
+            <button class="read-button" type="button" data-feature="word">Đọc và suy niệm <span aria-hidden="true">›</span></button>
+            <div class="book-illustration" aria-hidden="true"><span class="gold-cross">✝</span><span class="open-book">📖</span></div>
+          </article>
+
+          <div class="feature-grid" aria-label="Các chức năng chính">
+            <button type="button" class="feature tile-purple" data-feature="game"><span class="tile-icon">🎮</span><span>Trò chơi<br/>Kinh Thánh</span></button>
+            <button type="button" class="feature tile-green" data-feature="garden"><span class="tile-icon">🌱</span><span>Khu vườn<br/>Đức tin</span></button>
+            <button type="button" class="feature tile-gold" data-feature="prayer"><span class="tile-icon">🙏</span><span>Nguyện<br/>đường</span></button>
+            <button type="button" class="feature tile-peach" data-feature="memorial"><span class="tile-icon">🕯️</span><span>Vườn<br/>tưởng nhớ</span></button>
+            <button type="button" class="feature tile-blue" data-feature="community"><span class="tile-icon">👥</span><span>Cộng đoàn<br/>Giới trẻ</span></button>
+            <button type="button" class="feature tile-pink" data-feature="events"><span class="tile-icon">🗓️</span><span>Hoạt động<br/>Giáo xứ</span></button>
+          </div>
+          <p class="home-footnote">“Ánh sáng của anh em phải chiếu giãi trước mặt thiên hạ.” – Mt 5,16</p>
+        </div>
+        <nav class="bottom-nav" aria-label="Điều hướng chính">
+          <button class="nav-item active" type="button" data-nav="home"><span>⌂</span><small>Trang chủ</small></button>
+          <button class="nav-item" type="button" data-nav="word"><span>▤</span><small>Lời Chúa</small></button>
+          <button class="nav-item" type="button" data-nav="game"><span>♧</span><small>Trò chơi</small></button>
+          <button class="nav-item" type="button" data-nav="community"><span>♧</span><small>Cộng đoàn</small></button>
+          <button class="nav-item" type="button" data-nav="profile"><span>♙</span><small>Cá nhân</small></button>
+        </nav>
+      </section>
+      <div class="modal-backdrop hidden" id="modal-backdrop">
+        <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <button id="modal-close" class="close-modal" type="button" aria-label="Đóng">✕</button>
+          <div class="modal-icon" id="modal-icon">✨</div>
+          <h2 id="modal-title">Chào mừng</h2>
+          <div id="modal-content"></div>
+        </section>
+      </div>
+    </main>
+    <div class="outside-note"><strong>ÁNH SÁNG <span>· LUMEN</span></strong><p>Bản mẫu giao diện tương tác 1.0<br/>Dự án: <code>hanh-trinh-duc-tin</code></p><span>Thiết kế ưu tiên điện thoại · Dùng được trên GitHub Pages</span></div>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>
