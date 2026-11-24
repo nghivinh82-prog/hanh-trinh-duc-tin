@@ -1,0 +1,19 @@
+{
+  "name": "LUMI – Hành trình đức tin",
+  "short_name": "LUMI",
+  "description": "Khám phá Lời Chúa, trò chơi Kinh Thánh và kết nối cộng đoàn Công giáo.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#127643",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
