@@ -1,3 +1,13 @@
+
+// Đồng bộ biểu tượng SVG: không phụ thuộc emoji/font của thiết bị.
+const iconPaths = {"home": "<path d=\"m3 10 9-7 9 7v10H3z\"/><path d=\"M9 20v-7h6v7\"/>", "book-open": "<path d=\"M12 6c-3-2-6-2-10-1v14c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1z\"/><path d=\"M12 6v14\"/>", "book": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><path d=\"M8 7h8M8 11h8\"/>", "gamepad": "<path d=\"M7 8h10a5 5 0 0 1 4.6 3l1 5a3 3 0 0 1-4.7 3l-3-2H9l-3 2a3 3 0 0 1-4.7-3l1-5A5 5 0 0 1 7 8Z\"/><path d=\"M6 12v5M3.5 14.5h5\"/><circle cx=\"16.5\" cy=\"12.5\" r=\".8\"/><circle cx=\"19\" cy=\"15\" r=\".8\"/>", "sprout": "<path d=\"M12 21v-9\"/><path d=\"M12 13C7 13 4 10 4 5c5 0 8 3 8 8ZM12 16c0-5 3-8 8-8 0 5-3 8-8 8Z\"/>", "praying": "<path d=\"M7 4 5 9v10h14V9l-2-5-5 8z\"/><path d=\"m7 4 5 8m5-8-5 8M12 12v8\"/>", "candle": "<path d=\"M8 11h8v10H8zM12 11V8\"/><path d=\"M12 2c-3 2-3 5 0 6 3-1 3-4 0-6Z\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3\"/><circle cx=\"18\" cy=\"9\" r=\"2.5\"/><path d=\"M2 20v-3a7 7 0 0 1 14 0v3M17 14a5 5 0 0 1 5 5v1\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7 3v4M17 3v4M3 10h18m-13 5 3 3 5-6\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "bell": "<path d=\"M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4\"/>"};
+function installIcons(){
+  document.querySelectorAll('[data-icon]').forEach(el=>{
+    const path=iconPaths[el.dataset.icon]; if(!path)return;
+    el.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+path+'</svg>';
+  });
+}
+installIcons();
 'use strict';
 // Front-end prototype only. No accounts, messages or private user data are transmitted.
 const $ = (id) => document.getElementById(id);
