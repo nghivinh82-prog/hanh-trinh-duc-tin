@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#257d3b" />
+  <title>LUMI 0.7 – Khu vườn Isometric</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="app">
+  <header class="header">
+    <div><div class="eyebrow">LUMI 0.7 · VƯỜN ĐỨC TIN</div><h1>🌱 Nông trại Hạt Giống</h1><p>Khám phá hoa trái Chúa Thánh Thần trong khu vườn có chiều sâu.</p></div>
+    <a class="backup" href="../garden-phaser/index.html">Bản 0.6 ↗</a>
+  </header>
+  <section class="stats" aria-label="Tiến trình">
+    <div><strong id="seeds">1</strong><span>Hạt đã mở</span></div>
+    <div><strong id="missionsDone">0/12</strong><span>Nhiệm vụ</span></div>
+    <div><strong id="careCount">0</strong><span>Lượt chăm</span></div>
+  </section>
+  <div class="toolbar"><span>🏡 <b>Thế giới Isometric</b></span><div class="zoom"><button id="zoomOut" aria-label="Thu nhỏ">−</button><button id="resetView" aria-label="Trở về góc nhìn đầu">⌖</button><button id="zoomIn" aria-label="Phóng to">+</button></div></div>
+  <div class="game-wrap"><div id="game" aria-label="Bản đồ Khu vườn Đức tin"></div><div class="help" aria-hidden="true">☝ Chạm cây để khám phá · Kéo để di chuyển</div></div>
+  <p class="status" id="status" role="status">Đang khởi động khu vườn…</p>
+  <div class="actions"><button id="missions" class="primary">📖 Làm nhiệm vụ</button><button id="water" class="water">💧 Chăm cây</button></div>
+  <section class="next"><b>⛪ Hành trình phía trước</b><p>Khám phá đủ 8 hoa trái để xây Nguyện đường, rồi đủ 12 hoa trái và hoàn thành Nguyện đường để xây Nhà thờ. Bản 0.7 tập trung thử nghiệm đồ họa của ba cây đầu tiên; các công trình chưa được xây trong bản này.</p></section>
+  <footer>LUMI 0.7 · Thử nghiệm độc lập, không thay đổi trang chủ · Dữ liệu lưu trên thiết bị</footer>
+</main>
+<div class="overlay" id="overlay" hidden>
+ <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+  <button class="close" id="close" aria-label="Đóng cửa sổ">×</button><h2 id="dlgTitle">Khám phá</h2><div id="dlgBody"></div>
+ </section>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.90.0/phaser.min.js" crossorigin="anonymous"></script>
+<script src="game.js"></script>
+</body></html>
