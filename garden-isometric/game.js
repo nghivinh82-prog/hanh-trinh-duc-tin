@@ -1,5 +1,5 @@
 'use strict';
-/* LUMI 0.7.3 - EDITOR: 12 movable/rotatable soil plots, paths, seed bag and sowing.
+/* LUMI 0.7.3.1 - Fix plot drag opening info dialog. EDITOR: 12 movable/rotatable soil plots, paths, seed bag and sowing.
    Mission and growth data remain under lumi_garden_v02. Layout saved separately. */
 (()=>{
 const KEY='lumi_garden_v02', LAYOUT_KEY='lumi_garden_layout_v073', W=900,H=1500;
@@ -88,19 +88,19 @@ $('missions').onclick=missions;$('water').onclick=care;
 document.querySelectorAll('.tool').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;pickedSeed=null;update();highlight()}));
 if(typeof Phaser==='undefined'){message('Không tải được Phaser. Kiểm tra kết nối mạng.');return}
 class Farm extends Phaser.Scene{
- constructor(){super('Farm');this.plots=[];this.roadObjects=[];this.scaleFactor=1;this.dragging=false;this.draggingPlot=false;this.refit=0}
+ constructor(){super('Farm');this.plots=[];this.roadObjects=[];this.scaleFactor=1;this.dragging=false;this.draggingPlot=false;this.blockPlotTapUntil=0;this.refit=0}
  preload(){this.load.image('meadow','assets/meadow.webp');this.load.image('soil','assets/soil-flat.png');this.load.image('road-dirt','assets/path-dirt.png');this.load.image('road-brick','assets/path-brick.png');for(let i=0;i<12;i++)for(let g=0;g<=4;g++)this.load.image('fruit-'+i+'-'+g,'assets/fruit-'+i+'-'+g+'.png');this.load.on('loaderror',f=>message('Thiếu ảnh '+f.key+'. Hãy kiểm tra assets/'))}
  create(){scene=this;this.add.image(W/2,H/2,'meadow').setDisplaySize(W,H).setDepth(-10000);
   this.add.text(W/2,84,'🌱 KHU VƯỜN 12 HOA TRÁI',{fontFamily:'Arial',fontSize:'26px',fontStyle:'bold',color:'#205c2b',backgroundColor:'#fffbdeee',padding:{x:16,y:9}}).setOrigin(.5).setDepth(9999);
   for(let i=0;i<12;i++){
    const p=layout.plots[i],soil=this.add.image(p.x,p.y,'soil').setDisplaySize(188,102).setAngle(p.rotation).setDepth(p.y).setInteractive({useHandCursor:true,draggable:true});
    this.input.setDraggable(soil);
-   soil.on('pointerup',()=>{if(!this.dragging&&mode!=='move'&&mode!=='sow')this.plotClick(i);else if(!this.dragging&&mode==='sow')this.plotClick(i);else if(!this.dragging&&mode==='move')info(i)});
+   soil.on('pointerup',()=>{if(this.dragging||this.draggingPlot||performance.now()<this.blockPlotTapUntil)return;this.plotClick(i)});
    this.plots.push({i,soil,art:null,label:null,lock:null});
   }
-  this.input.on('dragstart',(pointer,obj)=>{if(mode!=='move')return;this.draggingPlot=true;this.oldPos={x:obj.x,y:obj.y};obj.setTint(0xffdf87)});
+  this.input.on('dragstart',(pointer,obj)=>{if(mode!=='move')return;this.draggingPlot=true;this.blockPlotTapUntil=performance.now()+300;this.oldPos={x:obj.x,y:obj.y};obj.setTint(0xffdf87)});
   this.input.on('drag',(pointer,obj,dragX,dragY)=>{if(!this.draggingPlot||mode!=='move')return;obj.setPosition(clamp(dragX,120,780),clamp(dragY,250,1400));this.repositionAll()});
-  this.input.on('dragend',(pointer,obj)=>{if(!this.draggingPlot)return;this.draggingPlot=false;obj.clearTint();const plot=this.plots.find(p=>p.soil===obj);if(!plot)return;
+  this.input.on('dragend',(pointer,obj)=>{if(!this.draggingPlot)return;this.draggingPlot=false;this.blockPlotTapUntil=performance.now()+220;obj.clearTint();const plot=this.plots.find(p=>p.soil===obj);if(!plot)return;
     const x=clamp(Math.round(obj.x/12)*12,135,765),y=clamp(Math.round(obj.y/12)*12,280,1360);
     if(!this.validPlot(x,y,plot.i)){obj.setPosition(this.oldPos.x,this.oldPos.y);message('Chỗ này đã có luống, có đường hoặc nằm ngoài vùng trồng.');}else{obj.setPosition(x,y);layout.plots[plot.i].x=x;layout.plots[plot.i].y=y;saveLayout();message('✓ Đã đặt luống số '+(plot.i+1)+' tại vị trí mới.');}
     this.repositionAll();
@@ -118,10 +118,18 @@ class Farm extends Phaser.Scene{
   if(this.plots.some(p=>Math.hypot(p.soil.x-x,(p.soil.y-y)*1.25)<105)){message('Không thể lát đường đè lên luống trồng.');return}
   layout.roads.push({x,y,kind:mode});saveLayout();this.drawRoads();message('✓ Đã lát '+(mode==='dirt'?'đường đất':'đường gạch')+'.');
  }
- drawRoads(){this.roadObjects.forEach(o=>o.destroy());this.roadObjects=layout.roads.map(r=>this.add.image(r.x,r.y,'road-'+r.kind).setDisplaySize(108,64).setDepth(r.y-3))}
+ drawRoads(){
+  this.roadObjects.forEach(o=>o.destroy());
+  // 2D terrain decals: no raised edges, no drop shadows; keep paths below crops and plots.
+  this.roadObjects=layout.roads.map(r=>{
+    const tile=this.add.image(r.x,r.y,'road-'+r.kind)
+      .setDisplaySize(112,70).setAlpha(0.98).setDepth(-5000);
+    return tile;
+  });
+ }
  repositionAll(){for(const p of this.plots){const d=layout.plots[p.i];if(!this.draggingPlot){p.soil.setPosition(d.x,d.y)}p.soil.setAngle(d.rotation);p.soil.setDepth(p.soil.y);if(p.art)p.art.setPosition(p.soil.x,p.soil.y-48).setDepth(p.soil.y+4);if(p.label)p.label.setPosition(p.soil.x,p.soil.y+58).setDepth(p.soil.y+5);if(p.lock)p.lock.setPosition(p.soil.x,p.soil.y-32).setDepth(p.soil.y+3)}}
  refresh(){state=readState();this.drawRoads();this.plots.forEach(p=>{p.art?.destroy();p.label?.destroy();p.lock?.destroy();p.art=p.lock=p.label=null;const id=Object.keys(layout.planted).find(k=>Number(layout.planted[k])===p.i);const x=layout.plots[p.i].x,y=layout.plots[p.i].y;
-  if(id!==undefined){const i=Number(id),g=state.growth[i];p.art=this.add.image(x,y-48,'fruit-'+i+'-'+g).setDisplaySize(g>=3?125:108,g>=3?125:108).setDepth(y+4).setInteractive({useHandCursor:true});p.art.on('pointerup',()=>{if(!this.dragging){if(mode==='rotate'||mode==='sow')this.plotClick(p.i);else if(mode==='move')info(p.i)}});p.label=this.add.text(x,y+58,FRUITS[i].name,{fontFamily:'Arial',fontSize:'19px',fontStyle:'bold',color:'#593b1b',backgroundColor:'#fff4d8df',padding:{x:9,y:4}}).setOrigin(.5).setDepth(y+5)}
+  if(id!==undefined){const i=Number(id),g=state.growth[i];p.art=this.add.image(x,y-48,'fruit-'+i+'-'+g).setDisplaySize(g>=3?125:108,g>=3?125:108).setDepth(y+4).setInteractive({useHandCursor:true});p.art.on('pointerup',()=>{if(this.dragging||this.draggingPlot||performance.now()<this.blockPlotTapUntil)return;this.plotClick(p.i)});p.label=this.add.text(x,y+58,FRUITS[i].name,{fontFamily:'Arial',fontSize:'19px',fontStyle:'bold',color:'#593b1b',backgroundColor:'#fff4d8df',padding:{x:9,y:4}}).setOrigin(.5).setDepth(y+5)}
   else{p.label=this.add.text(x,y+58,'Luống '+(p.i+1),{fontFamily:'Arial',fontSize:'15px',color:'#39592c',backgroundColor:'#fff9e0c9',padding:{x:5,y:3}}).setOrigin(.5).setDepth(y+5)}
  });this.repositionAll()}
  water(i){const idx=Number(layout.planted[i]);const p=layout.plots[idx];if(!p)return;for(let k=0;k<12;k++){const b=this.add.circle(p.x+Phaser.Math.Between(-40,40),p.y-110,Phaser.Math.Between(3,7),0x62e9ff,.95).setDepth(p.y+20);this.tweens.add({targets:b,y:p.y-9,alpha:0,duration:600,delay:k*45,onComplete:()=>b.destroy()})}}
