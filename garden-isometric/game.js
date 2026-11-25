@@ -45,8 +45,32 @@
   if(typeof Phaser==='undefined'){$('status').textContent='Không tải được Phaser. Hãy kiểm tra kết nối internet hoặc trình chặn nội dung.';return}
   class Meadow extends Phaser.Scene {
     constructor(){super('Meadow');this.tiles=[];this.dragging=false;this.zoomFactor=1;this.pendingFit=0}
-    preload(){this.load.image('meadow','assets/meadow.webp');['soil','chapel','fence'].forEach(s=>this.load.svg(s,`assets/${s}.svg`));FRUITS.forEach(f=>{for(let i=0;i<5;i++)this.load.svg(f.slug+'-'+i,`assets/${f.slug}-${i}.svg`)});this.load.on('loaderror',f=>{$('status').textContent='Thiếu hình: '+f.key})}
-    create(){scene=this;this.add.image(W/2,H/2,'meadow').setDisplaySize(W,H).setDepth(-1000);this.add.image(170,380,'fence').setDisplaySize(235,150).setAlpha(.75).setDepth(375);this.add.image(735,400,'chapel').setDisplaySize(285,230).setDepth(430).setInteractive({useHandCursor:true}).on('pointerup',()=>{if(!this.dragging){openDialog('⛪ Nguyện đường');$('dlgBody').append(el('p',`Cần khám phá 8 hoa trái để xây Nguyện đường. Hiện đã khám phá ${state.done.length}/12.`));$('dlgBody').append(el('p','Công trình hiển thị để xem trước; bản 0.7 chưa có chức năng xây dựng.'))}});
+    preload(){
+      const version='071';
+      this.failedAssets=[];
+      this.load.on('loaderror',file=>{
+        this.failedAssets.push(file.key);
+        console.warn('[LUMI] Khong tai duoc',file.key,file.src);
+      });
+      this.load.image('meadow','assets/meadow.webp?v='+version);
+      ['soil','chapel','fence'].forEach(s=>this.load.image(s,`assets/${s}.png?v=${version}`));
+      FRUITS.forEach(f=>{for(let i=0;i<5;i++)this.load.image(f.slug+'-'+i,`assets/${f.slug}-${i}.png?v=${version}`)});
+    }
+    create(){
+      scene=this;
+      const required=['meadow','soil','chapel','fence',...FRUITS.flatMap(f=>Array.from({length:5},(_,i)=>f.slug+'-'+i))];
+      const missing=required.filter(k=>!this.textures.exists(k));
+      if(missing.length){
+        const list=[...new Set([...missing,...(this.failedAssets||[])])];
+        $('status').textContent='⚠️ Không tải được hình: '+list.join(', ')+'. Kiểm tra tệp trong garden-isometric/assets hoặc GitHub Pages.';
+        this.add.rectangle(W/2,H/2,W,H,0xf5f6ce);
+        this.add.text(W/2,350,'⚠️ HÌNH ẢNH CHƯA TẢI ĐƯỢC\n'+list.join(', '),{
+          color:'#7b2424',fontFamily:'Arial',fontSize:'27px',align:'center',wordWrap:{width:780}
+        }).setOrigin(.5);
+        return;
+      }
+      $('status').textContent='✅ Đã tải đủ hình PNG/WebP. Chạm vào cây hoặc kéo nông trại để chơi.';
+      this.add.image(W/2,H/2,'meadow').setDisplaySize(W,H).setDepth(-1000);this.add.image(170,380,'fence').setDisplaySize(235,150).setAlpha(.75).setDepth(375);this.add.image(735,400,'chapel').setDisplaySize(285,230).setDepth(430).setInteractive({useHandCursor:true}).on('pointerup',()=>{if(!this.dragging){openDialog('⛪ Nguyện đường');$('dlgBody').append(el('p',`Cần khám phá 8 hoa trái để xây Nguyện đường. Hiện đã khám phá ${state.done.length}/12.`));$('dlgBody').append(el('p','Công trình hiển thị để xem trước; bản 0.7 chưa có chức năng xây dựng.'))}});
       const spots=[{x:205,y:670},{x:450,y:655},{x:695,y:680}];
       spots.forEach((p,i)=>{
         const soil=this.add.image(p.x,p.y,'soil').setDisplaySize(258,196).setDepth(p.y).setInteractive({useHandCursor:true});soil.on('pointerup',()=>{if(!this.dragging)plantInfo(i)});
